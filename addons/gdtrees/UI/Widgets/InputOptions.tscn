@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputOptions.gd" type="Script" id=1]
+
+[node name="InputOptions" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -824.0
+margin_bottom = -570.0
+script = ExtResource( 1 )
+options = [ "option 1", "option 2", "option 3" ]
+
+[node name="Label" type="Label" parent="."]
+margin_right = 98.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="."]
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "option 1"
+items = [ "option 1", null, false, 0, null, "option 2", null, false, 1, null, "option 3", null, false, 2, null ]
+selected = 0
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]

@@ -1,0 +1,90 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Control",
+"class": "Editor3D",
+"language": "GDScript",
+"path": "res://addons/gdtrees/UI/Editor3D/Editor3D.gd"
+}, {
+"base": "Spatial",
+"class": "EditorCurve",
+"language": "GDScript",
+"path": "res://addons/gdtrees/UI/Editor3D/EditorCurve.gd"
+}, {
+"base": "Spatial",
+"class": "EditorCurvePoint",
+"language": "GDScript",
+"path": "res://addons/gdtrees/UI/Editor3D/EditorCurvePoint.gd"
+}, {
+"base": "ImmediateGeometry",
+"class": "EditorCurveRing",
+"language": "GDScript",
+"path": "res://addons/gdtrees/UI/Editor3D/EditorRing.gd"
+}, {
+"base": "Spatial",
+"class": "GdTree",
+"language": "GDScript",
+"path": "res://addons/gdtrees/scripts/gdtree.gd"
+}, {
+"base": "Resource",
+"class": "GdTreeBranchData",
+"language": "GDScript",
+"path": "res://addons/gdtrees/scripts/gdtree_branch_data.gd"
+}, {
+"base": "Resource",
+"class": "GdTreeData",
+"language": "GDScript",
+"path": "res://addons/gdtrees/scripts/gdtree_data.gd"
+}, {
+"base": "Resource",
+"class": "GdTreeLODData",
+"language": "GDScript",
+"path": "res://addons/gdtrees/scripts/gdtree_lod_data.gd"
+}, {
+"base": "Resource",
+"class": "GdTreeTrunkData",
+"language": "GDScript",
+"path": "res://addons/gdtrees/scripts/gdtree_trunk_data.gd"
+}, {
+"base": "Reference",
+"class": "Utils",
+"language": "GDScript",
+"path": "res://addons/gdtrees/scripts/Utils.gd"
+} ]
+_global_script_class_icons={
+"Editor3D": "",
+"EditorCurve": "",
+"EditorCurvePoint": "",
+"EditorCurveRing": "",
+"GdTree": "",
+"GdTreeBranchData": "",
+"GdTreeData": "",
+"GdTreeLODData": "",
+"GdTreeTrunkData": "",
+"Utils": ""
+}
+
+[application]
+
+config/name="GdTrees"
+config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/gdtrees/plugin.cfg" )
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

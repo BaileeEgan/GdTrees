@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/gdtrees/UI/TreeDock.gd" type="Script" id=1]
+[ext_resource path="res://addons/gdtrees/UI/Tree.gd" type="Script" id=2]
+
+[node name="Tree" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+tree_node_path = NodePath("VBoxContainer/Tree")
+context_menu_path = NodePath("ContextMenu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="AddTrunk" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_right = 74.0
+margin_bottom = 20.0
+disabled = true
+text = "Add trunk"
+
+[node name="AddBranch" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 78.0
+margin_right = 162.0
+margin_bottom = 20.0
+disabled = true
+text = "Add branch"
+
+[node name="Tree" type="Tree" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+script = ExtResource( 2 )
+
+[node name="ContextMenu" type="PopupMenu" parent="."]
+margin_right = 100.0
+margin_bottom = 100.0
+
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/AddTrunk" to="." method="_on_add_trunk"]
+[connection signal="button_up" from="VBoxContainer/HBoxContainer/AddBranch" to="." method="_on_add_branch"]
+[connection signal="gui_input" from="VBoxContainer/Tree" to="." method="_on_Tree_gui_input"]
+[connection signal="item_selected" from="VBoxContainer/Tree" to="VBoxContainer/Tree" method="_on_Tree_item_selected"]
+[connection signal="reparent_data" from="VBoxContainer/Tree" to="." method="_on_tree_reparent_data"]
+[connection signal="tree_item_selected" from="VBoxContainer/Tree" to="." method="_on_tree_item_selected"]

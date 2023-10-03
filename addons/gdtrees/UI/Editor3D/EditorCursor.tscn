@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/gdtrees/UI/Editor3D/EditorCursor.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+render_priority = 20
+flags_unshaded = true
+flags_no_depth_test = true
+flags_fixed_size = true
+params_billboard_mode = 1
+albedo_color = Color( 1, 0, 0, 1 )
+
+[node name="EditorCursor" type="ImmediateGeometry"]
+material_override = SubResource( 1 )
+script = ExtResource( 1 )

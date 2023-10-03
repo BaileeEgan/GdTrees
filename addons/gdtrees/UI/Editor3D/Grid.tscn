@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 128, 128 )
+
+[sub_resource type="Shader" id=2]
+code = "// Adapted from http://asliceofrendering.com/scene%20helper/2020/01/05/InfiniteGrid/
+
+
+shader_type spatial;
+render_mode unshaded, shadows_disabled, cull_disabled;
+varying vec3 world_vertex;
+varying float cam_dist;
+
+void vertex() {
+	world_vertex = (WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	cam_dist = length(CAMERA_MATRIX[3].xyz - world_vertex);
+}
+
+vec4 grid (vec3 coord3D, float scale) {
+	vec2 coord = coord3D.xz * scale;
+	vec2 derivative = fwidth(coord);
+	vec2 grid = abs(fract(coord - 0.5) - 0.5) / derivative;
+	float line = min(grid.x, grid.y);
+	
+	float minimumz = min(derivative.y, 1) / scale;
+    float minimumx = min(derivative.x, 1) / scale;
+	
+	return(
+		vec4(
+			mix(
+			mix(vec3(1.0), vec3(0, 0, 1.0), float(world_vertex.z > -minimumz  && world_vertex.z <  minimumz)),
+			vec3(1.0, 0, 0), float(world_vertex.x > -minimumx  && world_vertex.x < minimumx)),
+		 1.0 - min(line, 1.0)));
+}
+
+void fragment() {
+	float s = 2.0;
+	vec4 grid = grid(world_vertex, 1.0);
+	ALPHA = grid.a * (1.0 - smoothstep(cam_dist, 20.0, 30.0));
+	ALBEDO = grid.rgb;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[node name="Grid" type="MeshInstance"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )

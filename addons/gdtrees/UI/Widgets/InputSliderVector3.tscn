@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputSliderVector3.gd" type="Script" id=1]
+[ext_resource path="res://addons/gdtrees/UI/Widgets/ProgressInput.tscn" type="PackedScene" id=2]
+
+[node name="InputSlider" type="HBoxContainer"]
+margin_right = 298.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 0, 150 )
+alignment = 2
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_right = 147.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 50, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 151.0
+margin_right = 298.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="X" parent="GridContainer" instance=ExtResource( 2 )]
+margin_right = 147.0
+margin_bottom = 47.0
+max_value = 10.0
+step = 1.0
+text = "X:"
+
+[node name="Y" parent="GridContainer" instance=ExtResource( 2 )]
+margin_top = 51.0
+margin_right = 147.0
+margin_bottom = 98.0
+max_value = 10.0
+step = 1.0
+text = "Y:"
+
+[node name="Z" parent="GridContainer" instance=ExtResource( 2 )]
+margin_top = 102.0
+margin_right = 147.0
+margin_bottom = 149.0
+max_value = 10.0
+step = 1.0
+text = "Z:"
+
+[connection signal="value_changed" from="GridContainer/X" to="." method="_on_X_value_changed"]
+[connection signal="value_changed" from="GridContainer/Y" to="." method="_on_Y_value_changed"]
+[connection signal="value_changed" from="GridContainer/Z" to="." method="_on_Z_value_changed"]

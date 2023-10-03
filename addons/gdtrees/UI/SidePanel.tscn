@@ -1,0 +1,702 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://addons/gdtrees/UI/Editor3D/Editor3D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/gdtrees/UI/SidePanel.gd" type="Script" id=2]
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputSlider.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputSliderVector2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputOptions.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputSliderVector3.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputCheckbox.tscn" type="PackedScene" id=7]
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputMaterial.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/gdtrees/UI/LODTab.tscn" type="PackedScene" id=9]
+
+[node name="SidePanel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+path_editor = NodePath("VBoxContainer/BranchOptions/VSplitContainer/Editor3D")
+leaf_options_path = NodePath("VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams")
+branch_options_path = NodePath("VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer/BranchParams")
+trunk_options_path = NodePath("VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer/TrunkParams")
+trunk_branch_options_path = NodePath("VBoxContainer/TrunkOptions/TabContainer/Branch Options/ScrollContainer/TrunkBranchParams")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BranchOptions" type="VBoxContainer" parent="VBoxContainer"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer/BranchOptions"]
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/BranchOptions/VSplitContainer"]
+margin_right = 1024.0
+margin_bottom = 294.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="Branch Options" type="Tabs" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BranchParams" type="VBoxContainer" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer"]
+margin_right = 1016.0
+margin_bottom = 258.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="branch_display" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer/BranchParams" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Controls whether the branch itself will be shown."
+label = "Display branches"
+
+[node name="branch_radial_segments" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer/BranchParams" instance=ExtResource( 3 )]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 42.0
+hint_tooltip = "Number of vertices composing each edge loop in the branch."
+label = "Radial segments"
+value = 3.0
+min_value = 3.0
+
+[node name="branch_radius" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer/BranchParams" instance=ExtResource( 3 )]
+margin_top = 46.0
+margin_right = 1016.0
+margin_bottom = 60.0
+hint_tooltip = "Base width of the branch."
+label = "Branch Radius"
+value = 0.1
+min_value = 0.1
+step = 0.01
+
+[node name="branch_simplify" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer/BranchParams" instance=ExtResource( 3 )]
+margin_top = 64.0
+margin_right = 1016.0
+margin_bottom = 78.0
+hint_tooltip = "The threshold for creating edge loops around angles. Higher values mean sharper angles and fewer vertices."
+label = "Simplify"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="branch_interval" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer/BranchParams" instance=ExtResource( 3 )]
+margin_top = 82.0
+margin_right = 1016.0
+margin_bottom = 96.0
+hint_tooltip = "The step or interval of creating edge loops for branch generation. Higher values generally mean simpler geometry."
+label = "Interval"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="branch_normal_adjust" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer/BranchParams" instance=ExtResource( 3 )]
+margin_top = 100.0
+margin_right = 1016.0
+margin_bottom = 114.0
+hint_tooltip = "Higher values generate normals by considering the whole tree as a blob. Lower values generate normals by considering each branch as its own blob."
+label = "Normals adjustment"
+max_value = 1.0
+step = 0.01
+
+[node name="branch_blob_normals" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Branch Options/ScrollContainer/BranchParams" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 118.0
+margin_right = 1016.0
+margin_bottom = 142.0
+label = "Blob normals"
+
+[node name="Leaf Options" type="Tabs" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeafParams" type="VBoxContainer" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer"]
+margin_right = 1016.0
+margin_bottom = 722.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="leaf_display" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1004.0
+margin_bottom = 24.0
+hint_tooltip = "Check true if leaves are to be shown on the branch."
+label = "Display leaves"
+
+[node name="leaf_size" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 4 )]
+margin_top = 28.0
+margin_right = 1004.0
+margin_bottom = 78.0
+hint_tooltip = "Size of the leaf cards."
+label = "Leaf size"
+value = Vector2( 1, 1 )
+min_value = 1.0
+max_value = 100.0
+step = 0.01
+
+[node name="leaf_type" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 82.0
+margin_right = 1004.0
+margin_bottom = 102.0
+hint_tooltip = "Type of leaf cards generated.
+Flat = Simple rectangular.
+Bent = Tent-like shape.
+Cross = Perpendicular cards."
+label = "Leaf mesh type"
+options = [ "flat", "bent", "cross" ]
+
+[node name="leaf_subdivisions" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 3 )]
+margin_top = 106.0
+margin_right = 1004.0
+margin_bottom = 120.0
+hint_tooltip = "Number of subdivisions for each leaf."
+label = "Leaf subdivisions"
+
+[node name="leaf_curvature" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 3 )]
+margin_top = 124.0
+margin_right = 1004.0
+margin_bottom = 138.0
+hint_tooltip = "Adjusts the curvature of the leaf."
+label = "Leaf curvature"
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+
+[node name="leaf_bend_angle" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 3 )]
+margin_top = 142.0
+margin_right = 1004.0
+margin_bottom = 156.0
+hint_tooltip = "For \"Bent\" leaf types. Adjusts the angle of the bend."
+label = "Leaf bend angle"
+min_value = -90.0
+max_value = 90.0
+step = 0.1
+
+[node name="leaf_num_per_node" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 3 )]
+margin_top = 160.0
+margin_right = 1004.0
+margin_bottom = 174.0
+hint_tooltip = "Number of leaves on each node of the branch."
+label = "Leaves per node"
+value = 1.0
+min_value = 1.0
+
+[node name="leaf_spacing" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 3 )]
+margin_top = 178.0
+margin_right = 1004.0
+margin_bottom = 192.0
+hint_tooltip = "The spacing between leaf nodes on a branch. Higher values move nodes father apart."
+label = "Leaf spacing"
+value = 0.1
+min_value = 0.1
+max_value = 50.0
+step = 0.01
+
+[node name="leaf_nodes_per_turn" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 3 )]
+margin_top = 196.0
+margin_right = 1004.0
+margin_bottom = 210.0
+hint_tooltip = "The amount of rotation of each node along the branch. Recommended to set around the same value as number of leaves per node."
+label = "Nodes per full turn"
+value = 0.1
+min_value = 0.1
+step = 0.01
+
+[node name="leaf_angle" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 6 )]
+margin_top = 214.0
+margin_right = 1004.0
+margin_bottom = 289.0
+hint_tooltip = "Adjusts the angle of the leaves on the branch."
+label = "Leaf rotation"
+min_value = -360.0
+max_value = 360.0
+step = 0.1
+
+[node name="leaf_origin_shift" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 6 )]
+margin_top = 293.0
+margin_right = 1004.0
+margin_bottom = 368.0
+hint_tooltip = "Adjusts the position of the leaf relative to the node on the branch."
+label = "Adjust leaf position"
+min_value = -20.0
+max_value = 20.0
+step = 0.01
+
+[node name="leaf_material" parent="VBoxContainer/BranchOptions/VSplitContainer/TabContainer/Leaf Options/ScrollContainer/LeafParams" instance=ExtResource( 8 )]
+rect_min_size = Vector2( 0, 150 )
+
+[node name="Editor3D" parent="VBoxContainer/BranchOptions/VSplitContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 306.0
+margin_right = 1024.0
+margin_bottom = 600.0
+editing_options = [ "Curves", "Branch radius scaling", "Leaf size scaling" ]
+enable_shadows = false
+
+[node name="TrunkOptions" type="VBoxContainer" parent="VBoxContainer"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/TrunkOptions"]
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+
+[node name="Trunk Options" type="Tabs" parent="VBoxContainer/TrunkOptions/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TrunkParams" type="VBoxContainer" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer"]
+margin_right = 1016.0
+margin_bottom = 564.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="trunk_radial_segments" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer/TrunkParams" instance=ExtResource( 3 )]
+margin_right = 1016.0
+margin_bottom = 14.0
+hint_tooltip = "Number of vertices for creating the edge loops of the trunk."
+label = "Radial segments"
+value = 3.0
+min_value = 3.0
+
+[node name="trunk_radius" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer/TrunkParams" instance=ExtResource( 3 )]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 32.0
+hint_tooltip = "Base radius of the trunk."
+label = "Trunk radius"
+value = 0.1
+min_value = 0.1
+step = 0.01
+
+[node name="trunk_simplify" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer/TrunkParams" instance=ExtResource( 3 )]
+margin_top = 36.0
+margin_right = 1016.0
+margin_bottom = 50.0
+hint_tooltip = "The threshold for creating edge loops around angles. Higher values mean sharper angles and fewer vertices."
+label = "Simplify"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="trunk_interval" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer/TrunkParams" instance=ExtResource( 3 )]
+margin_top = 54.0
+margin_right = 1016.0
+margin_bottom = 68.0
+hint_tooltip = "The step or interval of creating edge loops for trunk generation. Higher values generally mean simpler geometry."
+label = "Interval"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="trunk_truncation" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer/TrunkParams" instance=ExtResource( 3 )]
+margin_top = 72.0
+margin_right = 1016.0
+margin_bottom = 86.0
+hint_tooltip = "Truncates the top of the trunk."
+label = "Trunk truncation"
+max_value = 1.0
+step = 0.01
+
+[node name="trunk_bumpiness" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer/TrunkParams" instance=ExtResource( 3 )]
+margin_top = 90.0
+margin_right = 1016.0
+margin_bottom = 104.0
+hint_tooltip = "Adds irregularity to the trunk."
+label = "Trunk bumpiness"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="material_bark" parent="VBoxContainer/TrunkOptions/TabContainer/Trunk Options/ScrollContainer/TrunkParams" instance=ExtResource( 8 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 108.0
+margin_right = 1016.0
+margin_bottom = 258.0
+rect_min_size = Vector2( 0, 150 )
+
+[node name="Branch Options" type="Tabs" parent="VBoxContainer/TrunkOptions/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TrunkOptions/TabContainer/Branch Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TrunkBranchParams" type="VBoxContainer" parent="VBoxContainer/TrunkOptions/TabContainer/Branch Options/ScrollContainer"]
+margin_right = 1016.0
+margin_bottom = 564.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="branch_display" parent="VBoxContainer/TrunkOptions/TabContainer/Branch Options/ScrollContainer/TrunkBranchParams" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Set true if you want to show branches (including leaves) on this trunk."
+label = "Display branches"
+
+[node name="branch_num_per_node" parent="VBoxContainer/TrunkOptions/TabContainer/Branch Options/ScrollContainer/TrunkBranchParams" instance=ExtResource( 3 )]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 72.0
+hint_tooltip = "Number of branches originating from each node."
+label = "Branches per node"
+value = 1.0
+min_value = 1.0
+
+[node name="branch_spacing" parent="VBoxContainer/TrunkOptions/TabContainer/Branch Options/ScrollContainer/TrunkBranchParams" instance=ExtResource( 3 )]
+margin_top = 76.0
+margin_right = 1016.0
+margin_bottom = 120.0
+hint_tooltip = "The spacing of nodes along the trunk. Higher values place branch nodes farther apart."
+label = "Branch spacing"
+value = 0.05
+min_value = 0.05
+max_value = 50.0
+step = 0.01
+
+[node name="branch_spacing_multiplier" parent="VBoxContainer/TrunkOptions/TabContainer/Branch Options/ScrollContainer/TrunkBranchParams" instance=ExtResource( 3 )]
+margin_top = 124.0
+margin_right = 1016.0
+margin_bottom = 168.0
+hint_tooltip = "Adjusts the evenness of the branch node spacing, starting from the tip of the trunk. Higher than 1.0 consecutively increases node spacing. Lower than 1.0 consecutively decreases node spacing."
+label = "Branch spacing multiplier"
+value = 0.1
+min_value = 0.1
+max_value = 8.0
+step = 0.01
+
+[node name="branch_nodes_per_turn" parent="VBoxContainer/TrunkOptions/TabContainer/Branch Options/ScrollContainer/TrunkBranchParams" instance=ExtResource( 3 )]
+margin_top = 172.0
+margin_right = 1016.0
+margin_bottom = 216.0
+hint_tooltip = "The rotation about the trunk for each node. Recommended to set this as the number of branches per node or around the value."
+label = "Nodes per full turn"
+value = 0.1
+min_value = 0.1
+step = 0.01
+
+[node name="branch_angle" parent="VBoxContainer/TrunkOptions/TabContainer/Branch Options/ScrollContainer/TrunkBranchParams" instance=ExtResource( 6 )]
+margin_top = 220.0
+margin_right = 1016.0
+margin_bottom = 300.0
+hint_tooltip = "Changes the angle of the branches."
+label = "Branch rotation"
+min_value = -360.0
+max_value = 360.0
+step = 0.01
+
+[node name="TreeOptions" type="VBoxContainer" parent="VBoxContainer"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/TreeOptions"]
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Materials" type="VBoxContainer" parent="VBoxContainer/TreeOptions/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="InputMaterial" parent="VBoxContainer/TreeOptions/TabContainer/Materials" instance=ExtResource( 8 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1016.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="InputMaterial2" parent="VBoxContainer/TreeOptions/TabContainer/Materials" instance=ExtResource( 8 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 104.0
+margin_right = 1016.0
+margin_bottom = 204.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="LOD0" parent="VBoxContainer/TreeOptions/TabContainer" instance=ExtResource( 9 )]
+
+[node name="LOD1" type="Tabs" parent="VBoxContainer/TreeOptions/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TreeOptions/TabContainer/LOD1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PreviewLOD" type="Button" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer"]
+margin_right = 1016.0
+margin_bottom = 20.0
+text = "Preview"
+
+[node name="simplify" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 24.0
+margin_right = 1016.0
+margin_bottom = 68.0
+label = "Simplify"
+max_value = 1.0
+step = 0.01
+
+[node name="trunk_radial_segments" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 72.0
+margin_right = 1016.0
+margin_bottom = 116.0
+label = "Trunk radial segments"
+value = -1.0
+min_value = -1.0
+
+[node name="branch_radial_segments" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 120.0
+margin_right = 1016.0
+margin_bottom = 164.0
+label = "Branch radial segments"
+value = -1.0
+min_value = -1.0
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer"]
+margin_top = 168.0
+margin_right = 1016.0
+margin_bottom = 172.0
+
+[node name="branch_display" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 176.0
+margin_right = 1016.0
+margin_bottom = 200.0
+label = "Display branches"
+
+[node name="leaf_display" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 204.0
+margin_right = 1016.0
+margin_bottom = 228.0
+label = "Display leaves"
+
+[node name="branch_min_size" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 232.0
+margin_right = 1016.0
+margin_bottom = 276.0
+label = "Branch size threshold"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="leaf_min_size" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 280.0
+margin_right = 1016.0
+margin_bottom = 324.0
+label = "Leaf size threshold"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer"]
+margin_top = 328.0
+margin_right = 1016.0
+margin_bottom = 332.0
+
+[node name="leaf_type" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 336.0
+margin_right = 1016.0
+margin_bottom = 356.0
+label = "Leaf type"
+options = [ "Flat", "Bent", "Cross" ]
+
+[node name="leaf_doublesided" parent="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 360.0
+margin_right = 1016.0
+margin_bottom = 384.0
+label = "Double-sided leaves"
+
+[node name="LOD2" type="Tabs" parent="VBoxContainer/TreeOptions/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TreeOptions/TabContainer/LOD2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PreviewLOD" type="Button" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer"]
+margin_right = 1016.0
+margin_bottom = 20.0
+text = "Preview"
+
+[node name="simplify" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 24.0
+margin_right = 1016.0
+margin_bottom = 68.0
+label = "Simplify"
+max_value = 1.0
+step = 0.01
+
+[node name="trunk_radial_segments" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 72.0
+margin_right = 1016.0
+margin_bottom = 116.0
+label = "Trunk radial segments"
+value = -1.0
+min_value = -1.0
+
+[node name="branch_radial_segments" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 120.0
+margin_right = 1016.0
+margin_bottom = 164.0
+label = "Branch radial segments"
+value = -1.0
+min_value = -1.0
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer"]
+margin_top = 168.0
+margin_right = 1016.0
+margin_bottom = 172.0
+
+[node name="branch_display" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 176.0
+margin_right = 1016.0
+margin_bottom = 200.0
+label = "Display branches"
+
+[node name="leaf_display" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 204.0
+margin_right = 1016.0
+margin_bottom = 228.0
+label = "Display leaves"
+
+[node name="branch_min_size" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 232.0
+margin_right = 1016.0
+margin_bottom = 276.0
+label = "Branch size threshold"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="leaf_min_size" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 3 )]
+margin_top = 280.0
+margin_right = 1016.0
+margin_bottom = 324.0
+label = "Leaf size threshold"
+value = 1.0
+max_value = 1.0
+step = 0.01
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer"]
+margin_top = 328.0
+margin_right = 1016.0
+margin_bottom = 332.0
+
+[node name="leaf_type" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 336.0
+margin_right = 1016.0
+margin_bottom = 356.0
+label = "Leaf type"
+options = [ "Flat", "Bent", "Cross" ]
+
+[node name="leaf_doublesided" parent="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer" instance=ExtResource( 7 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 360.0
+margin_right = 1016.0
+margin_bottom = 384.0
+label = "Double-sided leaves"
+
+[connection signal="data_changed" from="VBoxContainer/BranchOptions/VSplitContainer/Editor3D" to="." method="_on_data_changed"]
+[connection signal="button_up" from="VBoxContainer/TreeOptions/TabContainer/LOD1/VBoxContainer/PreviewLOD" to="." method="_on_PreviewLOD_button_up" binds= [ 1 ]]
+[connection signal="button_up" from="VBoxContainer/TreeOptions/TabContainer/LOD2/VBoxContainer/PreviewLOD" to="." method="_on_PreviewLOD_button_up" binds= [ 2 ]]

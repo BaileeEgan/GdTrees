@@ -1,0 +1,131 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://addons/gdtrees/UI/Editor3D/Editor3D.gd" type="Script" id=1]
+[ext_resource path="res://addons/gdtrees/UI/Editor3D/EditorCamera.gd" type="Script" id=2]
+[ext_resource path="res://addons/gdtrees/UI/Editor3D/Grid.tscn" type="PackedScene" id=3]
+[ext_resource path="res://default_env.tres" type="Environment" id=4]
+[ext_resource path="res://addons/gdtrees/UI/Widgets/InputOptions.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/gdtrees/UI/Editor3D/sun.png" type="Texture" id=6]
+[ext_resource path="res://addons/gdtrees/UI/Editor3D/EditorCursor.tscn" type="PackedScene" id=7]
+
+[sub_resource type="World" id=2]
+resource_local_to_scene = true
+environment = ExtResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+flags_fixed_size = true
+params_billboard_mode = 1
+params_use_alpha_scissor = true
+params_alpha_scissor_threshold = 0.98
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_unshaded = true
+
+[node name="Editor3D" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+editing_options = [  ]
+enable_sun_rotation = false
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1024, 600 )
+own_world = true
+world = SubResource( 2 )
+handle_input_locally = false
+render_target_update_mode = 3
+physics_object_picking = true
+shadow_atlas_size = 1024
+
+[node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport"]
+
+[node name="CameraHinge" type="Spatial" parent="ViewportContainer/Viewport/Spatial"]
+script = ExtResource( 2 )
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport/Spatial/CameraHinge"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5 )
+far = 1000.0
+
+[node name="Curves" type="Spatial" parent="ViewportContainer/Viewport/Spatial"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="ViewportContainer/Viewport/Spatial"]
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_depth_range = 1
+directional_shadow_max_distance = 1000.0
+
+[node name="Sun" type="Sprite3D" parent="ViewportContainer/Viewport/Spatial/DirectionalLight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100 )
+material_override = SubResource( 3 )
+cast_shadow = 0
+pixel_size = 0.001
+billboard = 1
+texture = ExtResource( 6 )
+
+[node name="ImmediateGeometry" type="ImmediateGeometry" parent="ViewportContainer/Viewport/Spatial/DirectionalLight"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100 )
+material_override = SubResource( 4 )
+cast_shadow = 0
+
+[node name="Grid" parent="ViewportContainer/Viewport/Spatial" instance=ExtResource( 3 )]
+cast_shadow = 0
+
+[node name="EditorCursor" parent="ViewportContainer/Viewport/Spatial" instance=ExtResource( 7 )]
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="ViewControls" type="Label" parent="Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+valign = 2
+
+[node name="CurvesControls" type="Label" parent="Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "LEFT BTN: Move control points
+LEFT BTN + SHIFT: Move handles
+RIGHT BTN: Add/remove control point"
+valign = 2
+autowrap = true
+
+[node name="RingsControls" type="Label" parent="Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "LEFT BTN: Adjust ring radius
+LEFT BTN + SHIFT: Adjust ring position
+RIGHT BTN: Add/remove ring"
+valign = 2
+
+[node name="EditingMode" parent="." instance=ExtResource( 5 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 30.0
+label = "Editing"
+options = [  ]
+
+[node name="MouseCaption" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+
+[connection signal="value_changed" from="EditingMode" to="." method="_on_EditingMode_value_changed"]
